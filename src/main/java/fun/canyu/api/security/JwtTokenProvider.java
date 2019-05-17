@@ -7,7 +7,11 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -28,6 +32,10 @@ public class JwtTokenProvider {
 
     @Value("${security.jwt.token.expire-length:3600000}")
     private long validityInMilliseconds = 3600000; // 1h
+
+
+    @Autowired
+    MyUserDetails myUserDetails;
 
     @PostConstruct
     protected void init() {
@@ -53,6 +61,11 @@ public class JwtTokenProvider {
 
     public String getUsername(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public Authentication getAuthentication(String username) {
+        UserDetails userDetails = myUserDetails.loadUserByUsername(username);
+        return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getAuthorities());
     }
 
     public String resolveToken(HttpServletRequest req) {

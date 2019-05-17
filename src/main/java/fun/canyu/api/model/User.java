@@ -5,6 +5,8 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
 
+import java.util.Set;
+
 @Data
 @ToString
 @Accessors(chain = true)
@@ -13,4 +15,6 @@ public class User {
     private String id;
     private String username;
     private String password;
+    // 权限字符串存储
+    private Set<Role> permissions;
 }
