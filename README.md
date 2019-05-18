@@ -18,14 +18,15 @@
 
 ### 不同环境进行不同构建，读取不同环境变量
 
-1. 配置本地 idea 通过环境变量使用不同配置启动
+1. 配置本地 idea 通过环境变量使用不同配置启动，验证可行
     
     ```
     # 设置 idea 启动的 vm 参数
     -Dspring.profiles.active=dev -Ddebug
     ```
-2. 配置构建脚本 => 生成不同线上运行配置
-3. 配置流水线，不同环境使用 2 中生成的不同包
+2. 配置构建脚本 => 生成不同线上运行配置（主要用于读取不一样的密码配置）
+3. 配置流水线，不同环境使用 2 中生成的不同包，且传入不一样的启动参数，使用不同 spring boot 配置文件
+
 
 - [方法3：构建过程中引用环境变量](https://help.aliyun.com/document_detail/59297.html?spm=5176.11065259.1996646101.searchclickresult.43b33246bpi1pC)
 - [账号密码保存](https://help.aliyun.com/document_detail/60183.html?spm=a2c40.config_item_securityconfig_page.page.13.73f437adhQ83UX)
