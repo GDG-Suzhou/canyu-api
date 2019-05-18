@@ -36,7 +36,7 @@ public class UserService {
         User user = new User()
                 .setUsername(username)
                 .setPassword(passwordEncoder.encode(password))
-                .setRoles(ImmutableSet.of(Role.ROLE_NormalUser));
+                .setRoles(ImmutableSet.of(Role.ROLE_NORMAL_USER));
         userRepository.insert(user);
         return true;
     }
