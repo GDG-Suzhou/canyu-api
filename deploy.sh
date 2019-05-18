@@ -1,8 +1,10 @@
 #!/bin/bash
 
+# 读取第二个参数为当前环境，通过在部署命令上配置
+ENV_PROFILE=$1
+
 # 修改APP_NAME为云效上的应用名
 APP_NAME=canyu-api
-
 
 PROG_NAME=$0
 ACTION=$1
@@ -53,7 +55,7 @@ health_check() {
 }
 start_application() {
     echo "starting java process"
-    nohup java -jar ${JAR_NAME} > ${JAVA_OUT} 2>&1 &
+    nohup java -jar ${ENV_PROFILE} ${JAR_NAME} > ${JAVA_OUT} 2>&1 &
     echo "started java process"
 }
 

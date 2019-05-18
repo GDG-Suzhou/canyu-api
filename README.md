@@ -11,6 +11,15 @@
 - [ ] 统一日志处理
 - [ ] 加入单元测试流程
 
+## 本地开放环境搭建
+
+1. 数据库搭建（日常环境第一次同）
+
+    1. 安装数据库 [Install MongoDB Community Edition on Ubuntu](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/), 注意需要安装特定版本的 **4.0.9** 防止版本升级造成问题
+    2. 初始化日常用户名密码
+
+2. idea 配置
+
 ## 问题
 
 - 粗力度的权限控制行不行
@@ -24,8 +33,7 @@
     # 设置 idea 启动的 vm 参数
     -Dspring.profiles.active=dev -Ddebug
     ```
-2. 配置构建脚本 => 生成不同线上运行配置（主要用于读取不一样的密码配置）
-3. 配置流水线，不同环境使用 2 中生成的不同包，且传入不一样的启动参数，使用不同 spring boot 配置文件
+2. 环境配置：传入不一样的启动参数，使用不同 spring boot 配置文件
 
 
 - [方法3：构建过程中引用环境变量](https://help.aliyun.com/document_detail/59297.html?spm=5176.11065259.1996646101.searchclickresult.43b33246bpi1pC)
