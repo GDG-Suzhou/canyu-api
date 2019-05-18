@@ -16,5 +16,5 @@ public class User {
     private String username;
     private String password;
     // 权限字符串存储
-    private Set<Role> permissions;
+    private Set<Role> roles;
 }

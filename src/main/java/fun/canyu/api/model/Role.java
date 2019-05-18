@@ -13,7 +13,7 @@ public enum Role implements GrantedAuthority {
     /**
      * 注册用户
      */
-    ROLE_USER;
+    ROLE_NormalUser;
 
     @Override
     public String getAuthority() {

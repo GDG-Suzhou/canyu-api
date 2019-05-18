@@ -22,8 +22,12 @@ public class MyUserDetails implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
 
+        if (user == null) {
+            throw new UsernameNotFoundException("User '" + username + "' not found");
+        }
+
         List<Role> authorities = new ArrayList<>();
-        authorities.addAll(user.getPermissions());
+        authorities.addAll(user.getRoles());
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(username)
@@ -31,4 +35,5 @@ public class MyUserDetails implements UserDetailsService {
                 .authorities(authorities)
                 .build();
     }
+
 }

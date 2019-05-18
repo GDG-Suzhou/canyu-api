@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +19,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-
 
 @Component
 public class JwtTokenProvider {
@@ -32,7 +32,6 @@ public class JwtTokenProvider {
 
     @Value("${security.jwt.token.expire-length:3600000}")
     private long validityInMilliseconds = 3600000; // 1h
-
 
     @Autowired
     MyUserDetails myUserDetails;
@@ -65,7 +64,7 @@ public class JwtTokenProvider {
 
     public Authentication getAuthentication(String username) {
         UserDetails userDetails = myUserDetails.loadUserByUsername(username);
-        return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     public String resolveToken(HttpServletRequest req) {

@@ -3,6 +3,7 @@ package fun.canyu.api.controller;
 import fun.canyu.api.security.JwtTokenProvider;
 import fun.canyu.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,9 @@ public class UserController {
     @Autowired
     JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @GetMapping("/signup")
     public String signUp(String username, String password) {
         userService.signUp(username, password);
@@ -28,8 +32,7 @@ public class UserController {
         boolean result = userService.login(username, password);
         if (result) {
             // 登陆成功，返回 jwt token
-            String token = jwtTokenProvider.createToken(username);
-            return token;
+            return jwtTokenProvider.createToken(username);
         } else {
             return "登陆失败";
         }
